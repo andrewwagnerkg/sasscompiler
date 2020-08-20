@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Threading;
+using System.Threading.Tasks;
 
 namespace sasscompiler
 {
@@ -22,11 +22,7 @@ namespace sasscompiler
                 Console.WriteLine("Enter css file path please:");
                 outputfilepath = Console.ReadLine();
             }
-
-            Thread task = new Thread(()=> { 
-                start(inputfilepath, outputfilepath); 
-            });
-            task.Start();
+            var t=Task.Run(()=>start(inputfilepath,outputfilepath));
             Console.WriteLine("Process is started...");
             Console.ReadKey();
         }
@@ -44,7 +40,7 @@ namespace sasscompiler
                     Console.WriteLine($"{OutParam} >> {temp}");
                     compiler.CompileToFile();
                 }
-                Thread.Sleep(5);
+                Task.Delay(5);
             }
         }
     }
